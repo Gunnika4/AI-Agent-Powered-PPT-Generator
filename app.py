@@ -25,16 +25,18 @@ ALL_API = [GOOGLE_KEY, GROQ_KEY, TAVILY_KEY]
 if not all(ALL_API):
   st.sidebar.error("PASS API-KEYS")
 
-elif any(ALL_API):
-   st.sidebar.info("MUST PASS ALL API KEYS")
-
-else:
-   st.sidebar.success("API KEYS LOADED SUCCESSFULLY")
+elif all(ALL_API):
    # Step 1: Model Call
    model = ChatGoogleGenerativeAI(
       model = "gemini-3.5-flash-lite",
       google_api_key = GOOGLE_API_KEY
       )
+   st.sidebar.success("API KEYS LOADED SUCCESSFULLY")
+elif any(ALL_API):
+   st.sidebar.info("MUST PASS ALL API KEYS")
+
+else:
+   st.info("LOADED")
 
   # ============ FRONT END =============
   st.title("AI-Agent-Powered Agent Generator")
@@ -92,7 +94,7 @@ def prompt_generator(model, query):
   PPT toggle button, Based on query take image reference to generate
   and embed the same in ppt using
   Image ref: url = https://images.unsplash.com/photo,
-  or url = https://image.pollinations.ai/,
+  or url = https://image.pollinations.ai/{user_query},
   make sure img src must be valid, and image must be present inside html,
   Generate with image caption, and no markdowns
   user query given below:{query}
