@@ -71,7 +71,7 @@ def generate_image(img_prompt):
     f.write(content)
 
   from PIL import Image
-  return Image.open("Image.jpeg")
+  return url
 
 # WITH TABS
 tab1, tab2, tab3 = st.tabs(["GENERATE IMAGE",
@@ -108,28 +108,32 @@ def prompt_generator(model, query):
   return final_prompt
 
 
-agent = create_agent(
+if all(ALL_API) and user_query:
+  agent = create_agent(
     model = model,
     tools = [search_latest_info,
              generate_image
              ]
 )
 # ============ DISPLAY AGENT =============
-st.sidebar.image(agent)
+# st.sidebar.image(agent)
 
 # ================ WITH TABS ==============
 with tab1:
    st.header("GENERATE IMAGE GIVE PROMPT")
-   if st.button("Click to generate: "):
+   if st.button("Click to generate: ", key = "generate_img_button"):
      with st.spinner("Running Agent.. ")
-       data = generate_image(user_query)
+       data = f"https://image.pollinations.ai/{user_query}
+       import requests as r
+       img_data = r.get(data)
        st.image(data)
-       st.image("Image.jpeg")
+       # st.image("Image.jpeg")
 
 with tab2:
     st.header("CHECK LATEST NEWS")
     if st.button("Fetch news: "):
        with st.spinner("Running Agent.. "):
+       
          prompt = """Give latest news India or world news related 
          to tech, business, jobs, or user requested Output 
          In Proper HTML News Templates """ + user_query
@@ -156,7 +160,7 @@ with tab3:
 
          st.html(code, width="stretch",
                  unsafe_allow_javascript=True)
-         st.download_button(label = "DOWNLOAD PPT",
+         if st.download_button(label = "DOWNLOAD PPT",
                             data = code,
                             file_name = 'ppt.html',
                             mime = 'text/html')
