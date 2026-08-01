@@ -163,7 +163,7 @@ with tab3:
          if st.download_button(label = "DOWNLOAD PPT",
                             data = code,
                             file_name = 'ppt.html',
-                            mime = 'text/html')
+                            mime = 'text/html'):
 
          st.success("PPT Downloaded Successfully")
     
