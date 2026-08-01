@@ -154,7 +154,7 @@ with tab3:
          final_prompt = prompt_generator(model, user_query)
 
          response = agent.invoke({'messages':[{'role':"user",
-                                      "content":prompt}]})
+                                      "content":final_prompt}]})
 
          code = response['messages'][-1].content[-1]['text']
 
