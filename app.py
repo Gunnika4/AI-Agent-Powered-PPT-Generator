@@ -38,10 +38,10 @@ elif any(ALL_API):
 else:
    st.info("LOADED")
 
-  # ============ FRONT END =============
-  st.title("AI-Agent-Powered Agent Generator")
+# ============ FRONT END =============
+st.title("AI-Agent-Powered Agent Generator")
 
-  user_query = st.text_area("Write your PPT topic or Prompt: ")
+user_query = st.text_area("Write your PPT topic or Prompt: ")
 
 # =============== ASSESTS =================
 # Step 2: Tools Creation
